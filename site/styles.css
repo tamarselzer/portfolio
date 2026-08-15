@@ -86,6 +86,9 @@ p { margin: 0 0 1em 0; }
   display: none;
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow-y: auto;
   background: rgba(255, 255, 255, 0.93);
   z-index: 2000;
 }
@@ -506,14 +509,76 @@ p { margin: 0 0 1em 0; }
 
 @media (max-width: 640px) {
   :root { --sidebar-w: 0px; }
+
+  body { position: relative; }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 104px;
+    background: var(--bg);
+    z-index: 1999;
+  }
+
+  .site-name-fixed {
+    top: 16px;
+    left: 16px;
+    font-size: 15px;
+  }
+
+  .about-tab-fixed {
+    top: 44px;
+    left: 16px;
+  }
+
+  .contact-bar {
+    top: 72px;
+    left: 16px;
+    right: auto;
+    flex-wrap: wrap;
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .main-top-overlay { display: none; }
+
   .sidebar {
     position: static;
     width: 100%;
     height: auto;
     flex-direction: column;
     gap: 24px;
+    padding: 16px;
+    padding-top: 108px;
     border-bottom: 1px solid var(--border);
   }
+
+  .cover-list {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .cover-item {
+    flex: 0 0 auto;
+    width: 72px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .cover-item img {
+    width: 100%;
+    height: 72px;
+    object-fit: cover;
+  }
+
+  .cover-number { font-size: 12px; }
+
   .main { margin-left: 0; }
   .project {
     display: flex;
@@ -522,6 +587,19 @@ p { margin: 0 0 1em 0; }
     padding: 32px 20px;
   }
   .project .info { width: 100%; }
+  .project .gallery-col { width: 100%; }
+
+  .about-content {
+    margin-left: 0;
+    padding: 96px 20px 40px;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .about-col-left,
+  .about-col-right {
+    max-width: none;
+  }
 }
 
 /* ---------- Lightbox ---------- */
@@ -529,6 +607,8 @@ p { margin: 0 0 1em 0; }
 .lightbox {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   background: rgba(0, 0, 0, 0.92);
   display: none;
   align-items: center;
