@@ -237,7 +237,7 @@
     ],
     "creditsBefore": [],
     "description": [
-      "Design of a book series on cinema, selected from Resling Publishing's catalogue: Taxi Driver, The Birds, and Blue Velvet.",
+      "Design of a book series on cinema, based on selected films from Resling Publishing's catalogue: Taxi Driver, The Birds, and Blue Velvet.",
       "Each book combines the original critical text with excerpts from the film's screenplay, visual material drawn from the film, and references mentioned throughout the book."
     ],
     "creditsAfter": [],
@@ -364,7 +364,7 @@
     "metaLines": [],
     "creditsBefore": [],
     "description": [
-      "A mini-site featuring Benjamin Netanyahu's public speeches since October 7th, 2023. The site highlights the 3 most commonly used words/phrases in the speeches, and the least common word."
+      "A mini-site featuring Benjamin Netanyahu's public speeches since October 7th, 2023. The site highlights in real-time the repetitive use of three words and/phrases in these speeches, and also the least commonly used word."
     ],
     "creditsAfter": [
       {
