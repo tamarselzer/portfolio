@@ -235,7 +235,6 @@ p { margin: 0 0 1em 0; }
 
 .main {
   margin-left: var(--sidebar-w);
-  padding-top: 48px;
 }
 
 .project {
