@@ -149,7 +149,7 @@ p { margin: 0 0 1em 0; }
 }
 
 .cover-list {
-  margin-top: 8px;
+  margin-top: 48px;
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -248,7 +248,7 @@ p { margin: 0 0 1em 0; }
 }
 
 .project:last-child { border-bottom: none; }
-.project:first-child { padding-top: 24px; }
+.project:first-child { padding-top: 64px; }
 
 .project .info {
   min-width: 0;
