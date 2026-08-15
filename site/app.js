@@ -543,6 +543,16 @@ function initScrollEffects(projects) {
   update();
 }
 
+function alignMainTop(main, projects) {
+  if (window.innerWidth <= 640 || projects.length < 2) {
+    main.style.paddingTop = "";
+    return;
+  }
+  const secondCoverImg = document.querySelector(`.cover-item[data-slug="${projects[1].slug}"] img`);
+  if (!secondCoverImg) return;
+  main.style.paddingTop = `${secondCoverImg.getBoundingClientRect().top}px`;
+}
+
 async function init() {
   const { site, projects } = await loadData();
   app.innerHTML = "";
@@ -554,6 +564,13 @@ async function init() {
   }
   app.appendChild(main);
   initScrollEffects(projects);
+
+  alignMainTop(main, projects);
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => alignMainTop(main, projects), 100);
+  });
 }
 
 init();
