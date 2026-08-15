@@ -235,7 +235,6 @@ p { margin: 0 0 1em 0; }
 
 .main {
   margin-left: var(--sidebar-w);
-  padding-top: 24px;
 }
 
 .project {
@@ -249,6 +248,7 @@ p { margin: 0 0 1em 0; }
 }
 
 .project:last-child { border-bottom: none; }
+.project:first-child { padding-top: 24px; }
 
 .project .info {
   min-width: 0;
