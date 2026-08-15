@@ -35,7 +35,7 @@ p { margin: 0 0 1em 0; }
   position: fixed;
   top: 0; left: 0; bottom: 0;
   width: var(--sidebar-w);
-  padding: 24px 28px;
+  padding: 16px 28px 24px;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
@@ -149,7 +149,7 @@ p { margin: 0 0 1em 0; }
 }
 
 .cover-list {
-  margin-top: 24px;
+  margin-top: 8px;
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -235,6 +235,7 @@ p { margin: 0 0 1em 0; }
 
 .main {
   margin-left: var(--sidebar-w);
+  padding-top: 24px;
 }
 
 .project {
