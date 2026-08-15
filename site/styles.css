@@ -269,7 +269,7 @@ p { margin: 0 0 1em 0; }
 .project .info .meta-lines div,
 .project .info .credit-line { margin-bottom: 2px; }
 
-.project .info .credit-line .label { color: var(--fg); font-weight: 400; }
+.project .info .credit-line .label { color: var(--gray); font-weight: 400; }
 .project .info .credit-line .value { color: var(--gray); }
 
 .project .info .credits-block { margin-bottom: 14px; }
