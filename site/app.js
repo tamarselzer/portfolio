@@ -2,6 +2,7 @@ const app = document.getElementById("app");
 const CACHE_BUST = Date.now();
 let suppressTopEffect = false;
 let refreshScrollEffects = () => {};
+let updateScrollEffects = () => {};
 
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
@@ -152,6 +153,7 @@ function renderCoverList(projects) {
     row.appendChild(el("span", { class: "cover-number" }, `[ ${parseInt(project.number, 10)} ]`));
     row.addEventListener("click", () => {
       suppressTopEffect = true;
+      updateScrollEffects();
       document.getElementById(project.slug).scrollIntoView({ behavior: "smooth" });
     });
     list.appendChild(row);
@@ -540,6 +542,7 @@ function initScrollEffects(projects) {
       update();
     });
   };
+  updateScrollEffects = update;
   update();
 }
 
