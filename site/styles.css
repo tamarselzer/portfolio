@@ -78,6 +78,8 @@ p { margin: 0 0 1em 0; }
 .about-tab-fixed {
   position: fixed;
   top: 14px;
+  color: var(--fg);
+  font-weight: 600;
   left: calc(var(--sidebar-w) + 48px);
   z-index: 2001;
 }
