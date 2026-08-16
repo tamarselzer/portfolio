@@ -259,20 +259,22 @@ p { margin: 0 0 1em 0; }
 }
 
 .project .info .meta-lines {
-  color: var(--gray);
+  color: var(--fg);
+  font-weight: 300;
   margin-bottom: 14px;
 }
 
 .project .info .meta-lines div,
 .project .info .credit-line { margin-bottom: 2px; }
 
-.project .info .credit-line .label { color: var(--gray); font-weight: 400; }
-.project .info .credit-line .value { color: var(--gray); }
+.project .info .credit-line .label { color: var(--fg); font-weight: 400; }
+.project .info .credit-line .value { color: var(--fg); font-weight: 300; }
 
 .project .info .credits-block { margin-bottom: 14px; }
 
 .project .info .description {
-  color: var(--gray);
+  color: var(--fg);
+  font-weight: 300;
   margin-bottom: 14px;
 }
 
@@ -332,7 +334,7 @@ p { margin: 0 0 1em 0; }
 
 .gallery-ticker .ticker-label {
   font-weight: 700;
-  color: var(--gray);
+  color: var(--fg);
   white-space: nowrap;
   flex: 0 0 auto;
 }
@@ -350,7 +352,8 @@ p { margin: 0 0 1em 0; }
 }
 
 .gallery-ticker .ticker-track span {
-  color: var(--gray);
+  color: var(--fg);
+  font-weight: 300;
 }
 
 @keyframes ticker-scroll {
@@ -494,7 +497,8 @@ p { margin: 0 0 1em 0; }
 .gallery .counter {
   margin-top: 0;
   font-size: 0.933em;
-  color: var(--gray);
+  color: var(--fg);
+  font-weight: 300;
 }
 
 /* ---------- Responsive ---------- */
