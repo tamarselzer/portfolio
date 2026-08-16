@@ -204,15 +204,7 @@
         "kind": "image"
       },
       {
-        "file": "04.png",
-        "kind": "image"
-      },
-      {
-        "file": "05.png",
-        "kind": "image"
-      },
-      {
-        "file": "06.mov",
+        "file": "04.mov",
         "kind": "video"
       }
     ],
