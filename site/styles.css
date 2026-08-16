@@ -15,7 +15,7 @@ html, body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font);
-  font-size: 15px;
+  font-size: clamp(15px, calc(10px + 0.39vw), 20px);
   line-height: 1.3;
   -webkit-font-smoothing: antialiased;
 }
@@ -190,7 +190,6 @@ p { margin: 0 0 1em 0; }
 
 .about-content .experience-block .lines {
   color: var(--fg);
-  font-size: 15px;
   margin-bottom: 14px;
 }
 
@@ -206,11 +205,9 @@ p { margin: 0 0 1em 0; }
   padding-left: 14px;
 }
 
-.about-content .cv a { font-size: 15px; }
 
 .about-email {
   margin-top: 40px;
-  font-size: 15px;
   color: var(--fg);
 }
 
@@ -229,9 +226,6 @@ p { margin: 0 0 1em 0; }
   z-index: 2001;
 }
 
-.contact-bar a {
-  font-size: 15px;
-}
 
 /* ---------- Main / project sections ---------- */
 
@@ -329,7 +323,7 @@ p { margin: 0 0 1em 0; }
   overflow: hidden;
   min-width: 0;
   width: 40%;
-  font-size: 14px;
+  font-size: 0.933em;
 }
 
 .gallery-bottom-row .gallery-ticker {
@@ -499,7 +493,7 @@ p { margin: 0 0 1em 0; }
 
 .gallery .counter {
   margin-top: 0;
-  font-size: 14px;
+  font-size: 0.933em;
   color: var(--gray);
 }
 
