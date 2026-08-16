@@ -466,6 +466,7 @@ function initScrollEffects(projects) {
 
   function update(instant) {
     ticking = false;
+    if (!forceHome && window.scrollY > 2) suppressTopEffect = true;
     const atTop = forceHome || (window.scrollY <= 2 && !suppressTopEffect);
 
     if (instant) {
