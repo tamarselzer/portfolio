@@ -150,7 +150,7 @@ function renderCoverList(projects) {
     const row = el("div", { class: "cover-item", "data-slug": project.slug });
     const img = el("img", { src, alt: project.title, loading: "lazy" });
     row.appendChild(img);
-    row.appendChild(el("span", { class: "cover-number" }, `[ ${parseInt(project.number, 10)} ]`));
+    row.appendChild(el("span", { class: "cover-number" }, `${parseInt(project.number, 10)}`));
     row.addEventListener("click", () => {
       suppressTopEffect = true;
       updateScrollEffects();
