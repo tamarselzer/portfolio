@@ -327,7 +327,7 @@ p { margin: 0 0 1em 0; }
   overflow: hidden;
   min-width: 0;
   width: 40%;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .gallery-bottom-row .gallery-ticker {
@@ -497,7 +497,7 @@ p { margin: 0 0 1em 0; }
 
 .gallery .counter {
   margin-top: 0;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gray);
 }
 
