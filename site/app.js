@@ -227,42 +227,60 @@ function renderSidebar(site, projects) {
   const aboutOverlay = el("div", { class: "about-overlay" }, aboutContent);
   document.body.appendChild(aboutOverlay);
 
-  const indexOverlay = renderIndexOverlay(projects);
+  const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
 
   const aboutTab = el("button", { type: "button", class: "tab-btn" }, "[ About ]");
-  const indexTab = el("button", { type: "button", class: "tab-btn" }, "[ Index ]");
+  const tabButtons = [aboutTab];
 
-  function closeOverlays() {
-    aboutOverlay.classList.remove("open");
-    indexOverlay.classList.remove("open");
-    aboutTab.classList.remove("active");
-    indexTab.classList.remove("active");
+  if (isLocal) {
+    const indexOverlay = renderIndexOverlay(projects);
+    const indexTab = el("button", { type: "button", class: "tab-btn" }, "[ Index ]");
+
+    function closeOverlays() {
+      aboutOverlay.classList.remove("open");
+      indexOverlay.classList.remove("open");
+      aboutTab.classList.remove("active");
+      indexTab.classList.remove("active");
+    }
+
+    aboutTab.addEventListener("click", () => {
+      const willOpen = !aboutOverlay.classList.contains("open");
+      closeOverlays();
+      if (willOpen) {
+        aboutOverlay.classList.add("open");
+        aboutTab.classList.add("active");
+      }
+    });
+    indexTab.addEventListener("click", () => {
+      const willOpen = !indexOverlay.classList.contains("open");
+      closeOverlays();
+      if (willOpen) {
+        indexOverlay.classList.add("open");
+        indexTab.classList.add("active");
+      }
+    });
+    aboutOverlay.addEventListener("click", (e) => {
+      if (e.target === aboutOverlay) closeOverlays();
+    });
+    indexOverlay.addEventListener("click", (e) => {
+      if (e.target === indexOverlay) closeOverlays();
+    });
+
+    tabButtons.push(indexTab);
+  } else {
+    aboutTab.addEventListener("click", () => {
+      const open = aboutOverlay.classList.toggle("open");
+      aboutTab.classList.toggle("active", open);
+    });
+    aboutOverlay.addEventListener("click", (e) => {
+      if (e.target === aboutOverlay) {
+        aboutOverlay.classList.remove("open");
+        aboutTab.classList.remove("active");
+      }
+    });
   }
 
-  aboutTab.addEventListener("click", () => {
-    const willOpen = !aboutOverlay.classList.contains("open");
-    closeOverlays();
-    if (willOpen) {
-      aboutOverlay.classList.add("open");
-      aboutTab.classList.add("active");
-    }
-  });
-  indexTab.addEventListener("click", () => {
-    const willOpen = !indexOverlay.classList.contains("open");
-    closeOverlays();
-    if (willOpen) {
-      indexOverlay.classList.add("open");
-      indexTab.classList.add("active");
-    }
-  });
-  aboutOverlay.addEventListener("click", (e) => {
-    if (e.target === aboutOverlay) closeOverlays();
-  });
-  indexOverlay.addEventListener("click", (e) => {
-    if (e.target === indexOverlay) closeOverlays();
-  });
-
-  const tabRow = el("div", { class: "tab-row-fixed" }, [aboutTab, indexTab]);
+  const tabRow = el("div", { class: "tab-row-fixed" }, tabButtons);
   document.body.appendChild(tabRow);
 
   if (site.name) {
