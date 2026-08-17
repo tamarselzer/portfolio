@@ -182,11 +182,11 @@ p { margin: 0 0 1em 0; }
 }
 
 .about-col-left {
-  max-width: 280px;
+  max-width: 40ch;
 }
 
 .about-col-right {
-  max-width: 280px;
+  max-width: 40ch;
   text-align: left;
 }
 
@@ -294,6 +294,7 @@ p { margin: 0 0 1em 0; }
 
 .project .info {
   min-width: 0;
+  max-width: 40ch;
   display: flex;
   flex-direction: column;
 }
