@@ -141,6 +141,18 @@ function renderEntryGroup(heading, entries) {
   return group;
 }
 
+function scrollToProject(slug) {
+  for (const overlay of document.querySelectorAll(".about-overlay.open, .index-overlay.open")) {
+    overlay.classList.remove("open");
+  }
+  for (const tab of document.querySelectorAll(".tab-btn.active")) {
+    tab.classList.remove("active");
+  }
+  suppressTopEffect = true;
+  updateScrollEffects();
+  document.getElementById(slug).scrollIntoView({ behavior: "smooth" });
+}
+
 function renderCoverList(projects) {
   const list = el("div", { class: "cover-list" });
 
@@ -151,15 +163,38 @@ function renderCoverList(projects) {
     const img = el("img", { src, alt: project.title, loading: "lazy" });
     row.appendChild(img);
     row.appendChild(el("span", { class: "cover-number" }, `${parseInt(project.number, 10)}`));
-    row.addEventListener("click", () => {
-      suppressTopEffect = true;
-      updateScrollEffects();
-      document.getElementById(project.slug).scrollIntoView({ behavior: "smooth" });
-    });
+    row.addEventListener("click", () => scrollToProject(project.slug));
     list.appendChild(row);
   }
 
   return list;
+}
+
+function renderIndexOverlay(projects) {
+  const groups = el("div", { class: "index-groups" });
+  for (const project of projects) {
+    const number = parseInt(project.number, 10);
+    (project.items || []).forEach((item, i) => {
+      const src = `assets/${project.assetDir}/${item.file}?v=${CACHE_BUST}`;
+      const media =
+        item.kind === "video"
+          ? el("video", { src, muted: "", playsinline: "", preload: "metadata" })
+          : el("img", { src, alt: project.title, loading: "lazy" });
+      const label = el(
+        "div",
+        { class: "index-cell-number" },
+        `[ ${number}.${String(i + 1).padStart(2, "0")} ]`
+      );
+      const cell = el("div", { class: "index-cell" }, [label, media]);
+      cell.addEventListener("click", () => scrollToProject(project.slug));
+      groups.appendChild(cell);
+    });
+  }
+
+  const content = el("div", { class: "index-content" }, groups);
+  const overlay = el("div", { class: "index-overlay" }, content);
+  document.body.appendChild(overlay);
+  return overlay;
 }
 
 function renderSidebar(site, projects) {
@@ -192,18 +227,43 @@ function renderSidebar(site, projects) {
   const aboutOverlay = el("div", { class: "about-overlay" }, aboutContent);
   document.body.appendChild(aboutOverlay);
 
-  const aboutTab = el("button", { type: "button", class: "tab-btn about-tab-fixed" }, "[ About ]");
+  const indexOverlay = renderIndexOverlay(projects);
+
+  const aboutTab = el("button", { type: "button", class: "tab-btn" }, "[ About ]");
+  const indexTab = el("button", { type: "button", class: "tab-btn" }, "[ Index ]");
+
+  function closeOverlays() {
+    aboutOverlay.classList.remove("open");
+    indexOverlay.classList.remove("open");
+    aboutTab.classList.remove("active");
+    indexTab.classList.remove("active");
+  }
+
   aboutTab.addEventListener("click", () => {
-    const open = aboutOverlay.classList.toggle("open");
-    aboutTab.classList.toggle("active", open);
-  });
-  aboutOverlay.addEventListener("click", (e) => {
-    if (e.target === aboutOverlay) {
-      aboutOverlay.classList.remove("open");
-      aboutTab.classList.remove("active");
+    const willOpen = !aboutOverlay.classList.contains("open");
+    closeOverlays();
+    if (willOpen) {
+      aboutOverlay.classList.add("open");
+      aboutTab.classList.add("active");
     }
   });
-  document.body.appendChild(aboutTab);
+  indexTab.addEventListener("click", () => {
+    const willOpen = !indexOverlay.classList.contains("open");
+    closeOverlays();
+    if (willOpen) {
+      indexOverlay.classList.add("open");
+      indexTab.classList.add("active");
+    }
+  });
+  aboutOverlay.addEventListener("click", (e) => {
+    if (e.target === aboutOverlay) closeOverlays();
+  });
+  indexOverlay.addEventListener("click", (e) => {
+    if (e.target === indexOverlay) closeOverlays();
+  });
+
+  const tabRow = el("div", { class: "tab-row-fixed" }, [aboutTab, indexTab]);
+  document.body.appendChild(tabRow);
 
   if (site.name) {
     const siteName = el("div", { class: "site-name site-name-fixed" }, site.name);
