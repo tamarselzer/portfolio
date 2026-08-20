@@ -4,6 +4,18 @@ let suppressTopEffect = false;
 let refreshScrollEffects = () => {};
 let updateScrollEffects = () => {};
 
+function noOrphan(str) {
+  return str
+    .split("\n")
+    .map((line) => {
+      const trimmed = line.replace(/\s+$/, "");
+      const lastSpace = trimmed.lastIndexOf(" ");
+      if (lastSpace === -1) return line;
+      return trimmed.slice(0, lastSpace) + " " + trimmed.slice(lastSpace + 1) + line.slice(trimmed.length);
+    })
+    .join("\n");
+}
+
 function el(tag, attrs = {}, children = []) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
@@ -13,7 +25,7 @@ function el(tag, attrs = {}, children = []) {
   }
   for (const c of [].concat(children)) {
     if (c == null) continue;
-    node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    node.appendChild(typeof c === "string" ? document.createTextNode(noOrphan(c)) : c);
   }
   return node;
 }
