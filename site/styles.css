@@ -16,7 +16,7 @@ html, body {
   color: var(--fg);
   font-family: var(--font);
   font-size: clamp(14.33px, calc(9.33px + 0.39vw), 19.33px);
-  line-height: 1.15;
+  line-height: 1.22;
   -webkit-font-smoothing: antialiased;
 }
 
