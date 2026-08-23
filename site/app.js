@@ -219,9 +219,6 @@ function renderSidebar(site, projects) {
   const aboutColRight = el("div", { class: "about-col-right" });
   aboutColRight.appendChild(renderEntryGroup("Experience", site.experience));
   aboutColRight.appendChild(renderEntryGroup("Education", site.education));
-  if (site.cv && site.cv.url) {
-    aboutColRight.appendChild(el("div", { class: "cv" }, el("a", { href: site.cv.url }, site.cv.label || "download full cv")));
-  }
   if (site.email) {
     aboutColRight.appendChild(
       el("div", { class: "about-email" }, el("a", { href: `mailto:${site.email}` }, site.email))
@@ -233,17 +230,23 @@ function renderSidebar(site, projects) {
       el("div", { class: "about-email" }, el("a", { href: instagram.url, target: "_blank", rel: "noopener" }, "instagram"))
     );
   }
+  if (site.cv && site.cv.url) {
+    aboutColRight.appendChild(
+      el("div", { class: "about-email" }, el("a", { href: site.cv.url, target: "_blank", rel: "noopener" }, site.cv.label || "download cv"))
+    );
+  }
   aboutContent.appendChild(aboutColLeft);
   aboutContent.appendChild(aboutColRight);
   const aboutOverlay = el("div", { class: "about-overlay" }, aboutContent);
   document.body.appendChild(aboutOverlay);
 
   const isLocal = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+  const SHOW_INDEX_TAB = false;
 
   const aboutTab = el("button", { type: "button", class: "tab-btn" }, "[ About ]");
   const tabButtons = [aboutTab];
 
-  if (isLocal) {
+  if (isLocal && SHOW_INDEX_TAB) {
     const indexOverlay = renderIndexOverlay(projects);
     const indexTab = el("button", { type: "button", class: "tab-btn" }, "[ Index ]");
 
