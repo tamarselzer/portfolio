@@ -30,6 +30,39 @@ function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+// Horizontal swipe on touch screens: left swipe -> onNext, right swipe -> onPrev.
+// Vertical-dominant gestures are ignored so the page still scrolls normally.
+function addSwipe(target, onPrev, onNext) {
+  let startX = 0;
+  let startY = 0;
+  let tracking = false;
+  target.addEventListener(
+    "touchstart",
+    (e) => {
+      tracking = e.touches.length === 1;
+      if (!tracking) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    },
+    { passive: true }
+  );
+  target.addEventListener(
+    "touchend",
+    (e) => {
+      if (!tracking) return;
+      tracking = false;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - startX;
+      const dy = t.clientY - startY;
+      if (Math.abs(dx) < 40 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (dx < 0) onNext();
+      else onPrev();
+    },
+    { passive: true }
+  );
+  target.addEventListener("touchcancel", () => (tracking = false), { passive: true });
+}
+
 const lightbox = el("div", { class: "lightbox" });
 const lightboxStage = el("div", { class: "lightbox-stage" });
 const lightboxTrack = el("div", { class: "lightbox-track" });
@@ -122,6 +155,7 @@ lightboxNext.addEventListener("click", (e) => {
   e.stopPropagation();
   lbGoTo((lbIdx + 1) % lbItems.length, 1);
 });
+addSwipe(lightboxStage, () => lightboxPrev.click(), () => lightboxNext.click());
 document.addEventListener("keydown", (e) => {
   if (!lightbox.classList.contains("open")) return;
   if (e.key === "Escape") closeLightbox();
@@ -475,6 +509,7 @@ function renderGallery(project, tickerEl) {
   if (slides.length > 1) {
     gallery.appendChild(prevBtn);
     gallery.appendChild(nextBtn);
+    addSwipe(stage, () => prevBtn.click(), () => nextBtn.click());
   }
 
   // The first slide's media dictates the stage's aspect ratio (and therefore its height,

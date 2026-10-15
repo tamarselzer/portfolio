@@ -663,6 +663,12 @@ p { margin: 0 0 1em 0; }
   }
 }
 
+/* Let vertical page scroll through while horizontal swipes are handled by JS (gallery + lightbox) */
+.gallery .stage,
+.lightbox-stage {
+  touch-action: pan-y;
+}
+
 /* ---------- Lightbox ---------- */
 
 .lightbox {
