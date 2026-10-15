@@ -386,6 +386,13 @@ function renderGallery(project, tickerEl) {
 
   let idx = 0;
   let animating = false;
+  let ratioSet = false;
+
+  function setStageRatio(w, h) {
+    if (!w || !h) return;
+    stage.style.aspectRatio = `${w} / ${h}`;
+    ratioSet = true;
+  }
 
   function makeMedia(entry) {
     const { item, flatIndex } = entry;
@@ -396,10 +403,18 @@ function renderGallery(project, tickerEl) {
         : el("video", { src, controls: "", playsinline: "", preload: "metadata" });
       if (item.gif) video.muted = true;
       if (item.rotate) video.style.transform = `rotate(${item.rotate}deg)`;
+      video.addEventListener("loadedmetadata", () => {
+        if (!ratioSet) setStageRatio(video.videoWidth, video.videoHeight);
+      });
       return video;
     }
     const img = el("img", { src, alt: project.title, loading: "lazy" });
     if (item.rotate) img.style.transform = `rotate(${item.rotate}deg)`;
+    // Until the first slide's probe below finishes (slow on mobile for big files), let whichever
+    // slide is on screen size the stage so it never sits at the 3:2 fallback with gray bars.
+    img.addEventListener("load", () => {
+      if (!ratioSet) setStageRatio(img.naturalWidth, img.naturalHeight);
+    });
     img.addEventListener("click", () => openLightbox(items, flatIndex, project.assetDir));
     return img;
   }
@@ -469,17 +484,11 @@ function renderGallery(project, tickerEl) {
   if (firstEntry.item.kind === "video") {
     const probe = document.createElement("video");
     probe.preload = "metadata";
-    probe.addEventListener("loadedmetadata", () => {
-      if (probe.videoWidth && probe.videoHeight) {
-        stage.style.aspectRatio = `${probe.videoWidth} / ${probe.videoHeight}`;
-      }
-    });
+    probe.addEventListener("loadedmetadata", () => setStageRatio(probe.videoWidth, probe.videoHeight));
     probe.src = firstSrc;
   } else {
     const probe = new Image();
-    probe.addEventListener("load", () => {
-      stage.style.aspectRatio = `${probe.naturalWidth} / ${probe.naturalHeight}`;
-    });
+    probe.addEventListener("load", () => setStageRatio(probe.naturalWidth, probe.naturalHeight));
     probe.src = firstSrc;
   }
 

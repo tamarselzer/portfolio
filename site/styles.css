@@ -18,6 +18,8 @@ html, body {
   font-size: clamp(14.33px, calc(9.33px + 0.39vw), 19.33px);
   line-height: 1.28;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%; /* stop iOS Safari from inflating wide nowrap text like the ticker */
+  text-size-adjust: 100%;
 }
 
 a { color: inherit; text-decoration: underline; }
