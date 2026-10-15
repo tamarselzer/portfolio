@@ -634,6 +634,10 @@ p { margin: 0 0 1em 0; }
 
   .cover-number { font-size: 12px; }
 
+  /* On mobile the thumbnail strip is the top row of the works: keep it at full strength, no milky dimming */
+  .cover-item.dimmed img,
+  .cover-item.dimmed .cover-number { opacity: 1; }
+
   .main { margin-left: 0; }
   .project {
     display: flex;
