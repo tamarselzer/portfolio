@@ -1,5 +1,9 @@
 const app = document.getElementById("app");
-const CACHE_BUST = Date.now();
+// Locally always bust the cache. On the live site keep the URL stable so browsers reuse cached
+// images/videos (Vercel's ETag revalidation still picks up replaced files) instead of
+// re-downloading every asset on every visit.
+const IS_LOCAL = location.hostname === "localhost" || location.hostname === "127.0.0.1";
+const CACHE_BUST = IS_LOCAL ? Date.now() : "live";
 let suppressTopEffect = false;
 let refreshScrollEffects = () => {};
 let updateScrollEffects = () => {};
@@ -85,7 +89,11 @@ function lbMakeSlide(item) {
   const src = `assets/${lbAssetDir}/${item.file}?v=${CACHE_BUST}`;
   const slide = el("div", { class: "lightbox-slide" });
   if (item.kind === "video") {
-    const video = el("video", { src, controls: "", playsinline: "", autoplay: "" });
+    // gif-style clips (converted from GIF) loop silently without controls, like in the gallery
+    const video = item.gif
+      ? el("video", { src, loop: "", muted: "", playsinline: "", autoplay: "" })
+      : el("video", { src, controls: "", playsinline: "", autoplay: "" });
+    if (item.gif) video.muted = true;
     if (item.rotate) video.style.transform = `rotate(${item.rotate}deg)`;
     slide.appendChild(video);
   } else {

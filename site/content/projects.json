@@ -31,7 +31,7 @@
       { "file": "07.jpg", "kind": "image" },
       { "file": "08.jpg", "kind": "image" },
       { "file": "09.jpg", "kind": "image" },
-      { "file": "10.gif", "kind": "image" }
+      { "file": "10.mp4", "kind": "video", "gif": true }
     ],
     "ticker": {
       "label": "book design",
@@ -63,8 +63,9 @@
     "stageBg": "#000000",
     "items": [
       {
-        "file": "01.gif",
-        "kind": "image",
+        "file": "01.mp4",
+        "kind": "video",
+        "gif": true,
         "rotate": 180
       },
       {
@@ -122,7 +123,7 @@
       ]
     },
     "slides": [
-      { "files": ["01.gif"] },
+      { "files": ["01.mp4"] },
       { "files": ["02.jpg"] },
       { "files": ["03.jpg"] },
       { "files": ["04.jpg"] },
