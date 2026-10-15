@@ -565,10 +565,11 @@ p { margin: 0 0 1em 0; }
   body::before {
     content: "";
     position: fixed;
-    top: 0;
+    /* extends above the fixed origin so iOS Safari's status-bar strip is white too (no text peeking above the header) */
+    top: -120px;
     left: 0;
     width: 100vw;
-    height: 104px;
+    height: 224px;
     background: var(--bg);
     z-index: 1999;
   }
