@@ -557,18 +557,21 @@ p { margin: 0 0 1em 0; }
   .project { padding: 40px 24px; gap: 28px; }
 }
 
+.header-backdrop { display: none; }
+
 @media (max-width: 640px) {
   :root { --sidebar-w: 0px; }
 
   body { position: relative; }
 
-  body::before {
-    content: "";
+  /* A real element (not a pseudo-element) so iOS Safari treats it as the fixed header surface and
+     paints the status-bar strip above it white as well. */
+  .header-backdrop {
+    display: block;
     position: fixed;
-    /* with viewport-fit=cover this starts at the very top of the screen, so the iOS status-bar strip is white too */
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: calc(104px + env(safe-area-inset-top, 0px));
     background: var(--bg);
     z-index: 1999;
